@@ -2,7 +2,10 @@ import CHIP_IO.GPIO as GPIO
 import sys
 import time
 import pygame
+import signal
 
+def handler(signum, frame):
+    pass
 
 def btndown():
   global aold
@@ -37,6 +40,12 @@ def startplay(song):
   print file
 
 if __name__ == '__main__':
+  try:
+      signal.signal(signal.SIGHUP, handler)
+  except AttributeError:
+    # Windows compatibility
+      pass
+
   GPIO.setup("U14_14", GPIO.IN)
   GPIO.setup("U14_16", GPIO.IN)
   GPIO.setup("U14_18", GPIO.IN)
